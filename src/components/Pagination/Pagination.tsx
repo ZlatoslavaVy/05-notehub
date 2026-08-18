@@ -1,7 +1,7 @@
-import css from "../Pagination/Pagination.module.css"
+import css from "../Pagination/Pagination.module.css";
 
-export default Pagination() {
-    return (
-        
-    )
+export default function Pagination() {
+  // return (
+  //     //
+  // )
 }
