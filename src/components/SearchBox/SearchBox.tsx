@@ -3,11 +3,11 @@ import { useDebouncedCallback } from "use-debounce";
 import css from "./SearchBox.module.css";
 
 interface SearchBoxProps {
-  initialTopic: string;
+  defaultValue: string;
   onSearch: (title: string) => void;
 }
 
-export default function SearchBox({ initialTopic, onSearch }: SearchBoxProps) {
+export default function SearchBox({ defaultValue, onSearch }: SearchBoxProps) {
   const fieldId = useId();
 
   const debouncedSearch = useDebouncedCallback((topic: string) => {
@@ -24,7 +24,7 @@ export default function SearchBox({ initialTopic, onSearch }: SearchBoxProps) {
       className={css.input}
       type="text"
       placeholder="Search notes"
-      defaultValue={initialTopic}
+      defaultValue={defaultValue}
       onChange={handleChange}
     />
   );
