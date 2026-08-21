@@ -38,7 +38,7 @@ function App() {
         {/* Пагінація */}
         {/* <Pagination /> */}
         <NoteForm />
-        <NoteList notes={notes}>
+        <NoteList notes={notes} onDelete={}/>
         {/* Кнопка створення нотатки */}
         <button className={css.button}>Create note +</button>
         {/* <Modal></Modal> */}

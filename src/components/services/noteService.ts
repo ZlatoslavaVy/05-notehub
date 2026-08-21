@@ -1,45 +1,42 @@
 import axios from "axios";
-import type {Note} from "../../types/note"
+import type {Note, NewNote} from "../../types/note"
 
 
-const BASE_URL = import.meta.env.VITE_NOTEHUB_TOKEN;
+const BASE_URL = "https://notehub-public.goit.study/api/notes";
+const TOKEN = import.meta.env.VITE_NOTEHUB_TOKEN;
+
+const api = axios.create({
+  baseURL: BASE_URL,
+  headers: { Authorization: `Bearer ${TOKEN}` },
+});
 
 export const PER_PAGE = 12;
 
-export interface fetchNotesProps {
-  page: number;
-}
 export interface FetchNotesResponse {
   notes: Note[];
+  totalPages: number;
+}
+
+interface FetchNotesParams {
   page: number;
   perPage: number;
-  totalPages: number;
-  totalItems: number;
-}
-export const fetchNotes = async (title = ""): Promise<Note[]> => {
-    const response = await axios.get<Note[]>(`${BASE_URL}/notes`, {
-        params: (title),
-    });
-    return response.data
+  search?: string;
 }
 
-// export default function fetchNotes({ page }: fetchNotesProps) {
-//   axios
-//     .get("https://jsonplaceholder.typicode.com/todos")
-//     .then((response) => console.log(response.data))
-//     .catch((error) => console.log(error));
-// }
 
-// export default function createNote() {
-//   axios
-//     .post("https://jsonplaceholder.typicode.com/todos")
-//     .then((response) => console.log(response.data))
-//     .catch((error) => console.log(error));
-// }
-// const todoId = 1;
-// export default function deleteNote(todoId: number) {
-//   axios
-//     .delete(`https://jsonplaceholder.typicode.com/todos/${todoId}`)
-//     .then((response) => console.log(response.data))
-//     .catch((error) => console.log(error));
-// }
+export const fetchNotes = async (params: FetchNotesParams): Promise<FetchNotesResponse> => {
+  const response = await api.get<FetchNotesResponse>("", { params });
+  return response.data;
+};
+
+export const createNote = async (note: NewNote): Promise<Note> => {
+  const response = await api.post<Note>("", note);
+  return response.data;
+};
+
+export const deleteNote = async (id: string): Promise<Note> => {
+  const response = await api.delete<Note>(`/${id}`);
+  return response.data;
+};
+
+
