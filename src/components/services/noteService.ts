@@ -10,7 +10,6 @@ const api = axios.create({
   headers: { Authorization: `Bearer ${TOKEN}` },
 });
 
-export const PER_PAGE = 12;
 
 export interface FetchNotesResponse {
   notes: Note[];
